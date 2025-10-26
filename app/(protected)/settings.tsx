@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ScrollView, Switch, Text, View } from "react-native";
 import { Button } from "../../components/common/Button";
 import { Card } from "../../components/common/Card";
-import { useAuth } from "../../lib/hooks/useAuth";
+import { useAuth } from "../../lib/contexts/AuthContext";
 
 /**
  * Shared settings screen

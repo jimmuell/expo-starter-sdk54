@@ -109,7 +109,7 @@ import { RoleGate } from "../components/RoleGate";
 Use the `useAuth` hook anywhere in the app:
 
 ```tsx
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 
 export default function MyComponent() {
   const { user, isAuthenticated, signOut } = useAuth();

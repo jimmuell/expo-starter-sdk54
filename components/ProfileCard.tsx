@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from "react-native";
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 import { getRoleColor, getRoleLabel } from "../lib/roles";
 import { cn } from "../utils/cn";
 import { Card } from "./common/Card";

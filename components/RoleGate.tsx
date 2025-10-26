@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 import { hasRole } from "../lib/roles";
 import { UserRole } from "../types/user";
 

@@ -84,8 +84,9 @@ expo-starter-sdk54/
 │   └── RoleGate.tsx              # Conditional rendering by role
 │
 ├── lib/                          # Core business logic
+│   ├── contexts/
+│   │   └── AuthContext.tsx       # React Context auth provider
 │   ├── hooks/
-│   │   ├── useAuth.ts            # Zustand auth store
 │   │   └── useRoleGuard.ts       # Route protection hook
 │   ├── auth.ts                   # Auth service layer
 │   ├── api.ts                    # Supabase client
@@ -115,8 +116,8 @@ expo-starter-sdk54/
 - **React Native 0.81.5** - Mobile framework
 - **Expo Router v6** - File-based navigation
 - **NativeWind v4** - Tailwind CSS for React Native
-- **Zustand** - Lightweight state management
-- **Supabase** - Backend as a Service (ready to connect)
+- **React Context** - Global state management for authentication
+- **Supabase** - Backend as a Service (optional integration)
 - **TypeScript** - Type safety
 - **Expo SecureStore** - Encrypted storage
 
@@ -178,29 +179,27 @@ import { RoleGate } from "../components/RoleGate";
 
 ## 🔌 Connecting to Supabase
 
-The app works out of the box with mock data. To connect to real Supabase:
+The app works out of the box with **mock authentication** for development. To connect to real Supabase:
 
 ### Quick Setup
 
 1. Create a Supabase project at [supabase.com](https://supabase.com)
 
-2. Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
-
-3. Add your credentials:
+2. Update your `.env` file with credentials:
 ```env
 EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-4. Run the database schema (see `docs/supabase-integration.md`)
+3. Run the database schema (see `docs/supabase-integration.md`)
 
-5. Restart the app:
+4. **Important:** Restart the Expo dev server for `.env` changes to take effect:
 ```bash
-npm start --reset-cache
+# Press Ctrl+C to stop the server, then:
+npm start
 ```
+
+**Note:** The app automatically detects Supabase configuration. When credentials are present, it uses real Supabase auth. When credentials are commented out or missing, it uses mock authentication for testing.
 
 **Detailed guide:** See [docs/supabase-integration.md](docs/supabase-integration.md)
 
@@ -230,10 +229,10 @@ npx tsc --noEmit
 
 ### useAuth Hook
 
-Global auth state management:
+Global auth state management using React Context:
 
 ```tsx
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 
 const { user, isAuthenticated, signIn, signOut } = useAuth();
 ```

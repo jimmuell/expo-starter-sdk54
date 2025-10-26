@@ -1,8 +1,8 @@
-import { Redirect } from "expo-router";
-import { useEffect } from "react";
+import { router } from "expo-router";
+import { useEffect, useRef } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { getDashboardRoute } from "../constants/routes";
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 
 /**
  * Landing page / entry point
@@ -11,29 +11,28 @@ import { useAuth } from "../lib/hooks/useAuth";
  * - Authenticated -> Role-specific dashboard
  */
 export default function Index() {
-  const { isAuthenticated, isLoading, user, initialize } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
+  const hasNavigated = useRef(false);
 
   useEffect(() => {
-    // Ensure auth is initialized
-    initialize();
-  }, []);
+    // Only navigate once when loading is complete
+    if (!isLoading && !hasNavigated.current) {
+      hasNavigated.current = true;
+      
+      if (!isAuthenticated || !user) {
+        router.replace("/(auth)/login");
+      } else {
+        const dashboardRoute = getDashboardRoute(user.role);
+        router.replace(dashboardRoute as any);
+      }
+    }
+  }, [isLoading, isAuthenticated, user]);
 
-  // Show loading state while checking authentication
-  if (isLoading) {
-    return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" color="#3b82f6" />
-        <Text className="text-gray-600 mt-4">Loading...</Text>
-      </View>
-    );
-  }
-
-  // Redirect to appropriate screen based on auth state
-  if (!isAuthenticated || !user) {
-    return <Redirect href="/(auth)/login" />;
-  }
-
-  // Redirect to role-specific dashboard
-  const dashboardRoute = getDashboardRoute(user.role);
-  return <Redirect href={dashboardRoute as any} />;
+  // Show loading state
+  return (
+    <View className="flex-1 items-center justify-center bg-white">
+      <ActivityIndicator size="large" color="#3b82f6" />
+      <Text className="text-gray-600 mt-4">Loading...</Text>
+    </View>
+  );
 }

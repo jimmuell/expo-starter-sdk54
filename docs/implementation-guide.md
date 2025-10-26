@@ -207,7 +207,7 @@ export default function LoginScreen() {
 
 ```tsx
 import { Tabs } from "expo-router";
-import { useAuth } from "../../lib/hooks/useAuth";
+import { useAuth } from "../../lib/contexts/AuthContext";
 
 export default function TabLayout() {
   const { user } = useAuth();

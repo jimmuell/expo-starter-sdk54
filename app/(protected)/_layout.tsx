@@ -1,18 +1,13 @@
 import { Stack, router } from "expo-router";
 import { useEffect } from "react";
-import { useAuth } from "../../lib/hooks/useAuth";
+import { useAuth } from "../../lib/contexts/AuthContext";
 
 /**
  * Protected routes layout
  * Ensures user is authenticated before accessing any protected content
  */
 export default function ProtectedLayout() {
-  const { isAuthenticated, isLoading, initialize } = useAuth();
-
-  useEffect(() => {
-    // Initialize auth on mount
-    initialize();
-  }, []);
+  const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
     // Redirect to login if not authenticated

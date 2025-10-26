@@ -4,7 +4,7 @@ import { Alert, Pressable, Text, View } from "react-native";
 import { AuthForm } from "../../components/AuthForm";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/common/Input";
-import { useAuth } from "../../lib/hooks/useAuth";
+import { useAuth } from "../../lib/contexts/AuthContext";
 
 /**
  * Login screen

@@ -7,8 +7,8 @@
 import { router } from "expo-router";
 import { useEffect } from "react";
 import { UserRole } from "../../types/user";
+import { useAuth } from "../contexts/AuthContext";
 import { canAccessRoute, hasRole } from "../roles";
-import { useAuth } from "./useAuth";
 
 interface UseRoleGuardOptions {
   /**

@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../lib/contexts/AuthContext";
 import { UserRole } from "../types/user";
 import { cn } from "../utils/cn";
 

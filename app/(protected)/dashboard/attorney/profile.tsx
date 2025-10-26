@@ -3,7 +3,7 @@ import { DashboardHeader } from "../../../../components/DashboardHeader";
 import { Button } from "../../../../components/common/Button";
 import { Card } from "../../../../components/common/Card";
 import { Input } from "../../../../components/common/Input";
-import { useAuth } from "../../../../lib/hooks/useAuth";
+import { useAuth } from "../../../../lib/contexts/AuthContext";
 import { useRoleGuard } from "../../../../lib/hooks/useRoleGuard";
 
 /**
